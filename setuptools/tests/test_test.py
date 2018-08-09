@@ -102,7 +102,7 @@ def test_tests_are_run_once(capfd):
     with open('setup.py', 'wt') as f:
         f.write('from setuptools import setup; setup(\n')
         for k, v in sorted(params.items()):
-            f.write('    %s=%r,\n' % (k, v))
+            f.write('    {}={!r},\n'.format(k, v))
         f.write(')\n')
     os.makedirs('dummy')
     with open('dummy/__init__.py', 'wt'):

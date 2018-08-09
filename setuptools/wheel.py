@@ -100,7 +100,7 @@ class Wheel:
             self._install_as_egg(destination_eggdir, zf)
 
     def _install_as_egg(self, destination_eggdir, zf):
-        dist_basename = '%s-%s' % (self.project_name, self.version)
+        dist_basename = '{}-{}'.format(self.project_name, self.version)
         dist_info = self.get_dist_info(zf)
         dist_data = '%s.data' % dist_basename
         egg_info = os.path.join(destination_eggdir, 'EGG-INFO')

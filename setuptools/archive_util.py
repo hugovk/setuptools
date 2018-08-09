@@ -96,7 +96,7 @@ def unpack_zipfile(filename, extract_dir, progress_filter=default_filter):
     """
 
     if not zipfile.is_zipfile(filename):
-        raise UnrecognizedFormat("%s is not a zip file" % (filename,))
+        raise UnrecognizedFormat("{} is not a zip file".format(filename))
 
     with zipfile.ZipFile(filename) as z:
         for info in z.infolist():
@@ -135,7 +135,7 @@ def unpack_tarfile(filename, extract_dir, progress_filter=default_filter):
         tarobj = tarfile.open(filename)
     except tarfile.TarError:
         raise UnrecognizedFormat(
-            "%s is not a compressed or uncompressed tar file" % (filename,)
+            "{} is not a compressed or uncompressed tar file".format(filename)
         )
     with contextlib.closing(tarobj):
         # don't do any chowning!

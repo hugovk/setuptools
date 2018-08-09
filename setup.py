@@ -72,7 +72,7 @@ if include_windows_files:
     package_data.setdefault('setuptools', []).extend(['*.exe'])
     package_data.setdefault('setuptools.command', []).extend(['*.xml'])
 
-needs_wheel = set(['release', 'bdist_wheel']).intersection(sys.argv)
+needs_wheel = {'release', 'bdist_wheel'}.intersection(sys.argv)
 wheel = ['wheel'] if needs_wheel else []
 
 

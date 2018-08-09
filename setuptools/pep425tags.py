@@ -102,7 +102,7 @@ def get_abi_tag():
                           six.PY2)) \
                 and six.PY2:
             u = 'u'
-        abi = '%s%s%s%s%s' % (impl, get_impl_ver(), d, m, u)
+        abi = '{}{}{}{}{}'.format(impl, get_impl_ver(), d, m, u)
     elif soabi and soabi.startswith('cpython-'):
         abi = 'cp' + soabi.split('-')[1]
     elif soabi:
@@ -286,7 +286,7 @@ def get_supported(versions=None, noarch=False, platform=None,
         # Current version, current API (built specifically for our Python):
         for abi in abis:
             for arch in arches:
-                supported.append(('%s%s' % (impl, versions[0]), abi, arch))
+                supported.append(('{}{}'.format(impl, versions[0]), abi, arch))
 
         # abi3 modules compatible with older version of Python
         for version in versions[1:]:
@@ -295,21 +295,21 @@ def get_supported(versions=None, noarch=False, platform=None,
                 break
             for abi in abi3s:   # empty set if not Python 3
                 for arch in arches:
-                    supported.append(("%s%s" % (impl, version), abi, arch))
+                    supported.append(("{}{}".format(impl, version), abi, arch))
 
         # Has binaries, does not use the Python API:
         for arch in arches:
             supported.append(('py%s' % (versions[0][0]), 'none', arch))
 
     # No abi / arch, but requires our implementation:
-    supported.append(('%s%s' % (impl, versions[0]), 'none', 'any'))
+    supported.append(('{}{}'.format(impl, versions[0]), 'none', 'any'))
     # Tagged specifically as being cross-version compatible
     # (with just the major version specified)
-    supported.append(('%s%s' % (impl, versions[0][0]), 'none', 'any'))
+    supported.append(('{}{}'.format(impl, versions[0][0]), 'none', 'any'))
 
     # No abi / arch, generic Python
     for i, version in enumerate(versions):
-        supported.append(('py%s' % (version,), 'none', 'any'))
+        supported.append(('py{}'.format(version), 'none', 'any'))
         if i == 0:
             supported.append(('py%s' % (version[0]), 'none', 'any'))
 

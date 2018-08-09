@@ -124,10 +124,10 @@ if PY3:
 def _install_setup_requires(attrs):
     # Note: do not use `setuptools.Distribution` directly, as
     # our PEP 517 backend patch `distutils.core.Distribution`.
-    dist = distutils.core.Distribution(dict(
-        (k, v) for k, v in attrs.items()
+    dist = distutils.core.Distribution({
+        k: v for k, v in attrs.items()
         if k in ('dependency_links', 'setup_requires')
-    ))
+    })
     # Honor setup.cfg's options.
     dist.parse_config_files(ignore_option_errors=True)
     if dist.setup_requires:

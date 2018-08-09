@@ -53,7 +53,7 @@ def parse_requirement_arg(spec):
         return Requirement.parse(spec)
     except ValueError:
         raise DistutilsError(
-            "Not a URL, existing file, or requirement spec: %r" % (spec,)
+            "Not a URL, existing file, or requirement spec: {!r}".format(spec)
         )
 
 
@@ -456,7 +456,7 @@ class PackageIndex(Environment):
                 base, frag = egg_info_for_url(new_url)
                 if base.endswith('.py') and not frag:
                     if ver:
-                        new_url += '#egg=%s-%s' % (pkg, ver)
+                        new_url += '#egg={}-{}'.format(pkg, ver)
                     else:
                         self.need_version_info(url)
                 self.scan_url(new_url)
@@ -728,7 +728,7 @@ class PackageIndex(Environment):
             fp = self.open_url(url)
             if isinstance(fp, urllib.error.HTTPError):
                 raise DistutilsError(
-                    "Can't download %s: %s %s" % (url, fp.code, fp.msg)
+                    "Can't download {}: {} {}".format(url, fp.code, fp.msg)
                 )
             headers = fp.info()
             blocknum = 0
@@ -768,7 +768,7 @@ class PackageIndex(Environment):
             if warning:
                 self.warn(warning, msg)
             else:
-                raise DistutilsError('%s %s' % (url, msg))
+                raise DistutilsError('{} {}'.format(url, msg))
         except urllib.error.HTTPError as v:
             return v
         except urllib.error.URLError as v:
@@ -858,14 +858,14 @@ class PackageIndex(Environment):
                 if auth:
                     if ':' in auth:
                         user, pw = auth.split(':', 1)
-                        creds = " --username=%s --password=%s" % (user, pw)
+                        creds = " --username={} --password={}".format(user, pw)
                     else:
                         creds = " --username=" + auth
                     netloc = host
                     parts = scheme, netloc, url, p, q, f
                     url = urllib.parse.urlunparse(parts)
         self.info("Doing subversion checkout from %s to %s", url, filename)
-        os.system("svn checkout%s -q %s %s" % (creds, url, filename))
+        os.system("svn checkout{} -q {} {}".format(creds, url, filename))
         return filename
 
     @staticmethod
@@ -891,11 +891,11 @@ class PackageIndex(Environment):
         url, rev = self._vcs_split_rev_from_url(url, pop_prefix=True)
 
         self.info("Doing git clone from %s to %s", url, filename)
-        os.system("git clone --quiet %s %s" % (url, filename))
+        os.system("git clone --quiet {} {}".format(url, filename))
 
         if rev is not None:
             self.info("Checking out %s", rev)
-            os.system("(cd %s && git checkout --quiet %s)" % (
+            os.system("(cd {} && git checkout --quiet {})".format(
                 filename,
                 rev,
             ))
@@ -907,11 +907,11 @@ class PackageIndex(Environment):
         url, rev = self._vcs_split_rev_from_url(url, pop_prefix=True)
 
         self.info("Doing hg clone from %s to %s", url, filename)
-        os.system("hg clone --quiet %s %s" % (url, filename))
+        os.system("hg clone --quiet {} {}".format(url, filename))
 
         if rev is not None:
             self.info("Updating to %s", rev)
-            os.system("(cd %s && hg up -C -r %s -q)" % (
+            os.system("(cd {} && hg up -C -r {} -q)".format(
                 filename,
                 rev,
             ))

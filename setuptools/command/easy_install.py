@@ -978,7 +978,7 @@ class easy_install(Command):
             f.write('Metadata-Version: 1.0\n')
             for k, v in cfg.items('metadata'):
                 if k != 'target_version':
-                    f.write('%s: %s\n' % (k.replace('_', '-').title(), v))
+                    f.write('{}: {}\n'.format(k.replace('_', '-').title(), v))
             f.close()
         script_dir = os.path.join(_egg_info, 'scripts')
         # delete entry-point scripts to avoid duping
@@ -1140,7 +1140,7 @@ class easy_install(Command):
         try:
             run_setup(setup_script, args)
         except SystemExit as v:
-            raise DistutilsError("Setup script exited with %s" % (v.args[0],))
+            raise DistutilsError("Setup script exited with {}".format(v.args[0]))
 
     def build_and_install(self, setup_script, setup_base):
         args = ['bdist_egg', '--dist-dir']
@@ -1564,7 +1564,7 @@ def get_exe_prefixes(exe_filename):
                 for pth in yield_lines(contents):
                     pth = pth.strip().replace('\\', '/')
                     if not pth.startswith('import'):
-                        prefixes.append((('%s/%s/' % (parts[0], pth)), ''))
+                        prefixes.append((('{}/{}/'.format(parts[0], pth)), ''))
     finally:
         z.close()
     prefixes = [(x.lower(), y) for x, y in prefixes]
@@ -1724,7 +1724,7 @@ def auto_chmod(func, arg, exc):
         chmod(arg, stat.S_IWRITE)
         return func(arg)
     et, ev, _ = sys.exc_info()
-    six.reraise(et, (ev[0], ev[1] + (" %s %s" % (func, arg))))
+    six.reraise(et, (ev[0], ev[1] + (" {} {}".format(func, arg))))
 
 
 def update_dist_caches(dist_path, fix_zipimporter_caches):

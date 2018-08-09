@@ -633,7 +633,7 @@ def create_setup_requires_package(path, distname='foobar', version='0.1',
 
     test_setup_attrs = {
         'name': 'test_pkg', 'version': '0.0',
-        'setup_requires': ['%s==%s' % (distname, version)],
+        'setup_requires': ['{}=={}'.format(distname, version)],
         'dependency_links': [os.path.abspath(path)]
     }
     test_setup_attrs.update(setup_attrs)
@@ -653,7 +653,7 @@ def create_setup_requires_package(path, distname='foobar', version='0.1',
                 section = options
             if isinstance(value, (tuple, list)):
                 value = ';'.join(value)
-            section.append('%s: %s' % (name, value))
+            section.append('{}: {}'.format(name, value))
         with open(test_setup_cfg, 'w') as f:
             f.write(DALS(
                 """
@@ -678,7 +678,7 @@ def create_setup_requires_package(path, distname='foobar', version='0.1',
     with open(test_setup_py, 'w') as f:
         f.write(setup_py_template % test_setup_attrs)
 
-    foobar_path = os.path.join(path, '%s-%s.tar.gz' % (distname, version))
+    foobar_path = os.path.join(path, '{}-{}.tar.gz'.format(distname, version))
     make_package(foobar_path, distname, version)
 
     return test_pkg

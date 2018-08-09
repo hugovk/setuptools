@@ -946,7 +946,7 @@ class EnvironmentInfo:
             arch_subdir = self.pi.target_dir(x64=True)
             lib = os.path.join(self.si.WindowsSdkDir, 'lib')
             libver = self._sdk_subdir
-            return [os.path.join(lib, '%sum%s' % (libver , arch_subdir))]
+            return [os.path.join(lib, '{}um{}'.format(libver , arch_subdir))]
 
     @property
     def OSIncludes(self):
@@ -1044,7 +1044,7 @@ class EnvironmentInfo:
             path = os.path.join(self.si.WindowsSdkDir, 'Bin')
             arch_subdir = self.pi.current_dir(x64=True)
             sdkver = self.si.WindowsSdkLastVersion
-            yield os.path.join(path, '%s%s' % (sdkver, arch_subdir))
+            yield os.path.join(path, '{}{}'.format(sdkver, arch_subdir))
 
         if self.si.WindowsSDKExecutablePath:
             yield self.si.WindowsSDKExecutablePath
@@ -1133,7 +1133,7 @@ class EnvironmentInfo:
             base_path = self.si.VSInstallDir
             arch_subdir = ''
 
-        path = r'MSBuild\%0.1f\bin%s' % (self.vc_ver, arch_subdir)
+        path = r'MSBuild\{:0.1f}\bin{}'.format(self.vc_ver, arch_subdir)
         build = [os.path.join(base_path, path)]
 
         if self.vc_ver >= 15.0:
@@ -1163,7 +1163,7 @@ class EnvironmentInfo:
         arch_subdir = self.pi.target_dir(x64=True)
         lib = os.path.join(self.si.UniversalCRTSdkDir, 'lib')
         ucrtver = self._ucrt_subdir
-        return [os.path.join(lib, '%sucrt%s' % (ucrtver, arch_subdir))]
+        return [os.path.join(lib, '{}ucrt{}'.format(ucrtver, arch_subdir))]
 
     @property
     def UCRTIncludes(self):

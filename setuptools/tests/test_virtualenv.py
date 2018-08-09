@@ -81,7 +81,7 @@ def test_test_command_install_requirements(bare_virtualenv, tmpdir):
     )).format(source=SOURCE_DIR))
 
     def sdist(distname, version):
-        dist_path = tmpdir.join('%s-%s.tar.gz' % (distname, version))
+        dist_path = tmpdir.join('{}-{}.tar.gz'.format(distname, version))
         make_nspkg_sdist(str(dist_path), distname, version)
         return dist_path
     dependency_links = [

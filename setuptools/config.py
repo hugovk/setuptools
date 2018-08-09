@@ -394,7 +394,7 @@ class ConfigHandler:
 
             if section_parser_method is None:
                 raise DistutilsOptionError(
-                    'Unsupported distribution option section: [%s.%s]' % (
+                    'Unsupported distribution option section: [{}.{}]'.format(
                         self.section_prefix, section_name))
 
             section_parser_method(section_options)
@@ -458,7 +458,7 @@ class ConfigMetadataHandler(ConfigHandler):
             # Be strict about versions loaded from file because it's easy to
             # accidentally include newlines and other unintended content
             if isinstance(parse(version), LegacyVersion):
-                raise DistutilsOptionError('Version loaded from %s does not comply with PEP 440: %s' % (
+                raise DistutilsOptionError('Version loaded from {} does not comply with PEP 440: {}'.format(
                     value, version
                 ))
             return version
@@ -540,8 +540,8 @@ class ConfigOptionsHandler(ConfigHandler):
 
         valid_keys = ['where', 'include', 'exclude']
 
-        find_kwargs = dict(
-            [(k, v) for k, v in section_data.items() if k in valid_keys and v])
+        find_kwargs = {
+            k: v for k, v in section_data.items() if k in valid_keys and v}
 
         where = find_kwargs.get('where')
         if where is not None:

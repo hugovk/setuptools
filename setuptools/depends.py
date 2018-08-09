@@ -32,7 +32,7 @@ class Require:
     def full_name(self):
         """Return full package/distribution name, w/version"""
         if self.requested_version is not None:
-            return '%s-%s' % (self.name, self.requested_version)
+            return '{}-{}'.format(self.name, self.requested_version)
         return self.name
 
     def version_ok(self, version):
@@ -93,7 +93,7 @@ def find_module(module, paths=None):
             paths = [path]
 
         elif parts:
-            raise ImportError("Can't find %r in %s" % (parts, module))
+            raise ImportError("Can't find {!r} in {}".format(parts, module))
 
     return info
 

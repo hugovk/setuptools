@@ -51,10 +51,10 @@ class TestEggInfo:
             env = Environment(env_dir)
             os.chmod(env_dir, stat.S_IRWXU)
             subs = 'home', 'lib', 'scripts', 'data', 'egg-base'
-            env.paths = dict(
-                (dirname, os.path.join(env_dir, dirname))
+            env.paths = {
+                dirname: os.path.join(env_dir, dirname)
                 for dirname in subs
-            )
+            }
             list(map(os.mkdir, env.paths.values()))
             build_files({
                 env.paths['home']: {

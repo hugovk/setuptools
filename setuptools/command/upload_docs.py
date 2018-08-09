@@ -191,7 +191,7 @@ class upload_docs(upload):
 
         r = conn.getresponse()
         if r.status == 200:
-            msg = 'Server response (%s): %s' % (r.status, r.reason)
+            msg = 'Server response ({}): {}'.format(r.status, r.reason)
             self.announce(msg, log.INFO)
         elif r.status == 301:
             location = r.getheader('Location')
@@ -200,7 +200,7 @@ class upload_docs(upload):
             msg = 'Upload successful. Visit %s' % location
             self.announce(msg, log.INFO)
         else:
-            msg = 'Upload failed (%s): %s' % (r.status, r.reason)
+            msg = 'Upload failed ({}): {}'.format(r.status, r.reason)
             self.announce(msg, log.ERROR)
         if self.show_response:
             print('-' * 75, r.read(), '-' * 75)

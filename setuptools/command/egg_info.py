@@ -46,7 +46,7 @@ def translate_pattern(glob):
     chunks = glob.split(os.path.sep)
 
     sep = re.escape(os.sep)
-    valid_char = '[^%s]' % (sep,)
+    valid_char = '[^{}]'.format(sep)
 
     for c, chunk in enumerate(chunks):
         last_chunk = c == len(chunks) - 1
@@ -58,7 +58,7 @@ def translate_pattern(glob):
                 pat += '.*'
             else:
                 # Match '(name/)*'
-                pat += '(?:%s+%s)*' % (valid_char, sep)
+                pat += '(?:{}+{})*'.format(valid_char, sep)
             continue  # Break here as the whole path component has been handled
 
         # Find any special characters in the remainder
@@ -100,7 +100,7 @@ def translate_pattern(glob):
                         inner = inner[1:]
 
                     char_class += re.escape(inner)
-                    pat += '[%s]' % (char_class,)
+                    pat += '[{}]'.format(char_class)
 
                     # Skip to the end ]
                     i = inner_i
@@ -684,7 +684,7 @@ def write_entries(cmd, basename, filename):
             if not isinstance(contents, six.string_types):
                 contents = EntryPoint.parse_group(section, contents)
                 contents = '\n'.join(sorted(map(str, contents.values())))
-            data.append('[%s]\n%s\n\n' % (section, contents))
+            data.append('[{}]\n{}\n\n'.format(section, contents))
         data = ''.join(data)
 
     cmd.write_or_delete_file('entry points', filename, data, True)

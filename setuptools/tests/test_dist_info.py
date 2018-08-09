@@ -52,10 +52,10 @@ class TestDistInfo:
         return str(tmpdir)
 
     def test_distinfo(self, metadata):
-        dists = dict(
-            (d.project_name, d)
+        dists = {
+            d.project_name: d
             for d in pkg_resources.find_distributions(metadata)
-        )
+        }
 
         assert len(dists) == 2, dists
 

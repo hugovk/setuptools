@@ -80,7 +80,7 @@ def write_pkg_file(self, file):
                 attr_val = self._encode_field(attr_val)
 
             if attr_val is not None:
-                file.write('%s: %s\n' % (field, attr_val))
+                file.write('{}: {}\n'.format(field, attr_val))
 
     file.write('License: %s\n' % self.get_license())
     if self.download_url:
@@ -143,7 +143,7 @@ def assert_string_list(dist, attr, value):
         assert ''.join(value) != value
     except (TypeError, ValueError, AttributeError, AssertionError):
         raise DistutilsSetupError(
-            "%r must be a list of strings (got %r)" % (attr, value)
+            "{!r} must be a list of strings (got {!r})".format(attr, value)
         )
 
 
@@ -393,7 +393,7 @@ class Distribution(Distribution_parse_config_files, _Distribution):
                 normalized_version = str(ver)
                 if self.metadata.version != normalized_version:
                     warnings.warn(
-                        "Normalizing '%s' to '%s'" % (
+                        "Normalizing '{}' to '{}'".format(
                             self.metadata.version,
                             normalized_version,
                         )
@@ -472,10 +472,10 @@ class Distribution(Distribution_parse_config_files, _Distribution):
 
         for r in complex_reqs:
             self._tmp_extras_require[':' + str(r.marker)].append(r)
-        self.extras_require = dict(
-            (k, [str(r) for r in map(self._clean_req, v)])
+        self.extras_require = {
+            k: [str(r) for r in map(self._clean_req, v)]
             for k, v in self._tmp_extras_require.items()
-        )
+        }
 
     def _clean_req(self, req):
         """
@@ -729,7 +729,7 @@ class Distribution(Distribution_parse_config_files, _Distribution):
         """Handle 'exclude()' for list/tuple attrs without a special handler"""
         if not isinstance(value, sequence):
             raise DistutilsSetupError(
-                "%s: setting must be a list or tuple (%r)" % (name, value)
+                "{}: setting must be a list or tuple ({!r})".format(name, value)
             )
         try:
             old = getattr(self, name)
@@ -749,7 +749,7 @@ class Distribution(Distribution_parse_config_files, _Distribution):
 
         if not isinstance(value, sequence):
             raise DistutilsSetupError(
-                "%s: setting must be a list (%r)" % (name, value)
+                "{}: setting must be a list ({!r})".format(name, value)
             )
         try:
             old = getattr(self, name)
@@ -793,7 +793,7 @@ class Distribution(Distribution_parse_config_files, _Distribution):
     def _exclude_packages(self, packages):
         if not isinstance(packages, sequence):
             raise DistutilsSetupError(
-                "packages: setting must be a list or tuple (%r)" % (packages,)
+                "packages: setting must be a list or tuple ({!r})".format(packages)
             )
         list(map(self.exclude_package, packages))
 

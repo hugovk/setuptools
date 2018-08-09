@@ -157,7 +157,7 @@ class Record:
         self._fields = kwargs
 
     def __repr__(self):
-        return '%s(**%r)' % (self._id, self._fields)
+        return '{}(**{!r})'.format(self._id, self._fields)
 
 
 WHEEL_INSTALL_TESTS = (
@@ -531,7 +531,7 @@ def test_wheel_install_pep_503():
 def test_wheel_no_dist_dir():
     project_name = 'nodistinfo'
     version = '1.0'
-    wheel_name = '{0}-{1}-py2.py3-none-any.whl'.format(project_name, version)
+    wheel_name = '{}-{}-py2.py3-none-any.whl'.format(project_name, version)
     with tempdir() as source_dir:
         wheel_path = os.path.join(source_dir, wheel_name)
         # create an empty zip file
