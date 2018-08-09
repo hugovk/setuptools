@@ -110,14 +110,9 @@ class sdist(sdist_add_defaults, orig.sdist):
             tb.tb_next.tb_frame.f_locals['template'].close()
             raise
 
-    # Beginning with Python 2.7.2, 3.1.4, and 3.2.1, this leaky file handle
-    #  has been fixed, so only override the method if we're using an earlier
-    #  Python.
-    has_leaky_handle = (
-        sys.version_info < (2, 7, 2)
-        or (3, 0) <= sys.version_info < (3, 1, 4)
-        or (3, 2) <= sys.version_info < (3, 2, 1)
-    )
+    # Beginning with Python 2.7.2, this leaky file handle has been fixed,
+    # so only override the method if we're using an earlier Python.
+    has_leaky_handle = sys.version_info < (2, 7, 2)
     if has_leaky_handle:
         read_template = __read_template_hack
 

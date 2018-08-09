@@ -596,7 +596,7 @@ Requirements Parsing
         Fizzy [foo, bar]
         PickyThing<1.6,>1.9,!=1.9.6,<2.0a0,==2.4c1
         SomethingWhoseVersionIDontCareAbout
-        SomethingWithMarker[foo]>1.0;python_version<"2.7"
+        SomethingWithMarker[foo]>1.0;python_version<"3.7"
 
     The project name is the only required portion of a requirement string, and
     if it's the only thing supplied, the requirement will accept any version
