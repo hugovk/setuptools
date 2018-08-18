@@ -1,7 +1,6 @@
 import os
 import sys
 import itertools
-import imp
 from distutils.command.build_ext import build_ext as _du_build_ext
 from distutils.file_util import copy_file
 from distutils.ccompiler import new_compiler
@@ -64,11 +63,25 @@ if_dl = lambda s: s if have_rtld else ''
 
 def get_abi3_suffix():
     """Return the file extension for an abi3-compliant Extension()"""
-    for suffix, _, _ in (s for s in imp.get_suffixes() if s[2] == imp.C_EXTENSION):
-        if '.abi3' in suffix:  # Unix
-            return suffix
-        elif suffix == '.pyd':  # Windows
-            return suffix
+
+    try:
+        # Python 3
+        import importlib.machinery
+        for suffix in (s for s in importlib.machinery.all_suffixes()
+                       if s in importlib.machinery.EXTENSION_SUFFIXES):
+            if '.abi3' in suffix:  # Unix
+                return suffix
+            elif suffix == '.pyd':  # Windows
+                return suffix
+    except ImportError:
+        # Python 2.7 (imp is deprecated since 3.4)
+        import imp
+        for suffix, _, _ in (s for s in imp.get_suffixes()
+                             if s[2] == imp.C_EXTENSION):
+            if '.abi3' in suffix:  # Unix
+                return suffix
+            elif suffix == '.pyd':  # Windows
+                return suffix
 
 
 class build_ext(_build_ext):
