@@ -1,4 +1,7 @@
 import distutils.command.bdist_rpm as orig
+import warnings
+
+from setuptools import SetuptoolsDeprecationWarning
 
 
 class bdist_rpm(orig.bdist_rpm):
@@ -13,6 +16,11 @@ class bdist_rpm(orig.bdist_rpm):
     """
 
     def run(self):
+        warnings.warn(
+            "bdist_rpm is deprecated and will be removed in a future version.",
+            SetuptoolsDeprecationWarning
+        )
+
         # ensure distro name is up-to-date
         self.run_command('egg_info')
 
