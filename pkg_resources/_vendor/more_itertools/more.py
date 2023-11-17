@@ -217,7 +217,7 @@ def last(iterable, default=_marker):
     try:
         if isinstance(iterable, Sequence):
             return iterable[-1]
-        # Work around https://bugs.python.org/issue38525
+        # Work around https://github.com/python/cpython/issues/82706
         elif hasattr(iterable, '__reversed__') and (hexversion != 0x030800F0):
             return next(reversed(iterable))
         else:

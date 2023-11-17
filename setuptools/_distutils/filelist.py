@@ -276,7 +276,7 @@ class _UniqueDirs(set):
     """
     Exclude previously-seen dirs from walk results,
     avoiding infinite recursion.
-    Ref https://bugs.python.org/issue44497.
+    Ref https://github.com/python/cpython/issues/88663.
     """
 
     def __call__(self, walk_item):

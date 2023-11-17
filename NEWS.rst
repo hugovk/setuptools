@@ -2742,7 +2742,7 @@ Documentation changes
 Misc
 ----
 * #2082: Filter ``lib2to3`` ``PendingDeprecationWarning`` and ``DeprecationWarning`` in tests,
-  because ``lib2to3`` is `deprecated in Python 3.9 <https://bugs.python.org/issue40360>`_.
+  because ``lib2to3`` is `deprecated in Python 3.9 <https://github.com/python/cpython/issues/84540>`_.
 
 
 v46.1.3

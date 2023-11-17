@@ -974,9 +974,9 @@ else:
 
 if sys.version_info >= (3, 9, 2):
     # The standard library TypedDict in Python 3.8 does not store runtime information
-    # about which (if any) keys are optional.  See https://bugs.python.org/issue38834
+    # about which (if any) keys are optional.  See https://github.com/python/cpython/issues/83015
     # The standard library TypedDict in Python 3.9.0/1 does not honour the "total"
-    # keyword with old-style TypedDict().  See https://bugs.python.org/issue42059
+    # keyword with old-style TypedDict().  See https://github.com/python/cpython/issues/86225
     TypedDict = typing.TypedDict
 else:
     def _check_fails(cls, other):

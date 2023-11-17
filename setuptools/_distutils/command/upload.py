@@ -18,7 +18,7 @@ from ..spawn import spawn
 
 
 # PyPI Warehouse supports MD5, SHA256, and Blake2 (blake2-256)
-# https://bugs.python.org/issue40698
+# https://github.com/python/cpython/issues/84875
 _FILE_CONTENT_DIGESTS = {
     "md5_digest": getattr(hashlib, "md5", None),
     "sha256_digest": getattr(hashlib, "sha256", None),

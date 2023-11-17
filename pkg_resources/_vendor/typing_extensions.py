@@ -220,7 +220,7 @@ if sys.version_info >= (3, 11):
 else:
     # @final exists in 3.8+, but we backport it for all versions
     # before 3.11 to keep support for the __final__ attribute.
-    # See https://bugs.python.org/issue46342
+    # See https://github.com/python/cpython/issues/90500
     def final(f):
         """This decorator can be used to indicate to type checkers that
         the decorated method cannot be overridden, and decorated class
@@ -652,9 +652,9 @@ else:
 
 if hasattr(typing, "Required"):
     # The standard library TypedDict in Python 3.8 does not store runtime information
-    # about which (if any) keys are optional.  See https://bugs.python.org/issue38834
+    # about which (if any) keys are optional.  See https://github.com/python/cpython/issues/83015
     # The standard library TypedDict in Python 3.9.0/1 does not honour the "total"
-    # keyword with old-style TypedDict().  See https://bugs.python.org/issue42059
+    # keyword with old-style TypedDict().  See https://github.com/python/cpython/issues/86225
     # The standard library TypedDict below Python 3.11 does not store runtime
     # information about optional and required keys when using Required or NotRequired.
     # Generic TypedDicts are also impossible using typing.TypedDict on Python <3.11.

@@ -89,7 +89,7 @@ class TestBuildRpm(
 
     @mac_woes
     @requires_zlib()
-    # http://bugs.python.org/issue1533164
+    # https://github.com/python/cpython/issues/43761
     @pytest.mark.skipif("not find_executable('rpm')")
     @pytest.mark.skipif("not find_executable('rpmbuild')")
     def test_no_optimize_flag(self):
